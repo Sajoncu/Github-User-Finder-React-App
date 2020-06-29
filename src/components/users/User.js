@@ -2,14 +2,18 @@ import React, { Component, Fragment} from 'react'
 import PropTypes from 'prop-types';
 import Spinner from '../layout/Spinner';
 import {Link} from 'react-router-dom';
+import Repos from '../repos/Repos';
 
 class User extends Component {
     componentDidMount() {
         this.props.getUser(this.props.match.params.login);
+        this.props.getUserRepos(this.props.match.params.login);
     }
 
     static propType = {
         getUser: PropTypes.func.isRequired,
+        getUserRepos: PropTypes.func.isRequired,
+        repos: PropTypes.array.isRequired,
         user: PropTypes.object.isRequired,
         loading: PropTypes.bool
     }
@@ -80,6 +84,7 @@ class User extends Component {
                     <div className="badge badge-light">Public Repos: {public_repos}</div>
                     <div className="badge badge-danger">Public Gists: {public_gists}</div>
                 </div>
+                <Repos repos={this.props.repos}/>
             </Fragment>
         )
     }

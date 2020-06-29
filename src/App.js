@@ -13,6 +13,7 @@ class App extends Component {
   state = {
     users : [],
     user: {},
+    repos: [],
     loading : false,
     alert : null
   };
@@ -42,6 +43,14 @@ class App extends Component {
     this.setState({user:res.data, loading: false});
   }
 
+  // GET SINGLE USER REPOSITORY
+  getUserRepos = async (username) => {
+    this.setState({loading:true});
+    const res = await axios.get(`https://api.github.com/users/${username}/repos?per_page=5&sort=created`);
+    console.log(res.data.items);
+    this.setState({repos:res.data, loading: false});
+  }
+
   //SET ALERT
   setAlert = (msg, type) => {
     this.setState({alert: {msg, type}});
@@ -49,7 +58,7 @@ class App extends Component {
   };
 
   render(){
-    const { users, loading, alert, user } = this.state;
+    const { users, loading, alert, user, repos } = this.state;
     return (
       <Router>
         <div className='App'>
@@ -71,7 +80,13 @@ class App extends Component {
 
                 <Route exact path='/about' component={About} />
                 <Route exact path='/user/:login' render={props=>(
-                  <User {...props} getUser={this.getSingleUSer} user={user} loading={loading} /> // (...) spread operator
+                  <User 
+                    {...props}
+                    getUser={this.getSingleUSer}
+                    getUserRepos={this.getUserRepos}
+                    repos = {repos}
+                    user={user} 
+                    loading={loading} /> // (...) spread operator
                 )}/>
               </Switch>
 
