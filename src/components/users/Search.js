@@ -24,8 +24,12 @@ class Search extends Component {
     // SEARCH GITHUB USER
     onSubmit = e =>{
         e.preventDefault();
-        this.props.searchUser(this.state.text);
-        this.setState({text:''});
+        if(this.state.text === '') {
+            this.props.setAlert('Please enter something.', 'danger');
+        } else {
+            this.props.searchUser(this.state.text);
+            this.setState({text:''});
+        }
     }
 
     // THIS WILL CLEAR USERS FROM THE WINDOW 

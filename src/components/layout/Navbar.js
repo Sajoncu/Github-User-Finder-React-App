@@ -7,8 +7,8 @@ const Navbar = ({title, icon}) => {
     return (
         <nav className="navbar bg-primary">
             <h1>
-                <i className={icon}/>
-                {title}
+                <i className={icon}/> 
+                 &nbsp; {title}
             </h1>
         </nav>
     );
@@ -16,7 +16,7 @@ const Navbar = ({title, icon}) => {
 }
 Navbar.defaultProps = {
     title: "Github Finder",
-    icon: "fab fa-github"
+    icon: "fa fa-github"
 };
 Navbar.propTypes = {
     title: PropTypes.string.isRequired,
