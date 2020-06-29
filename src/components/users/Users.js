@@ -3,7 +3,9 @@ import UserItem from './UserItem';
 import Spinner from '../layout/Spinner';
 import PropTypes from 'prop-types'
 
-
+/*
+ * USERS COMPONENT WILL SHOW ALL THE SEARCHED USERS 
+ */
 const Users = ({loading, users}) => {
     if(loading) {
         return <Spinner />
@@ -11,9 +13,6 @@ const Users = ({loading, users}) => {
         return (
             <div style={userStyle}>
                 {   
-                    users.length > 0 ? (
-                        <UserItem />
-                    ):
                     users.map( user => (
                         <UserItem key={user.id} user={user} />
                     ))
@@ -24,11 +23,13 @@ const Users = ({loading, users}) => {
     
 }
 
+// SET PROPS VALIDATION
 Users.propType = {
     users: PropTypes.array.isRequired,
     loading: PropTypes.bool.isRequired
 }
 
+// MANUAL STYLE FOR THE USERS GIRD
 const userStyle = {
     display: 'grid', 
     gridTemplateColumns: 'repeat(3, 1fr)',
