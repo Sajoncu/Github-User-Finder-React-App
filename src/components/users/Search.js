@@ -1,59 +1,52 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { useState } from 'react'
+import PropTypes from 'prop-types';
 
 /*
 * SEARCH COMPONENT (FUNCTIONS BASED)
 */
-class Search extends Component {
+const Search = ({searchUser, clearUsers, showClear, setAlert}) => {
 
     // FOR STATE MANAGEMENT
-    state = {
-        text: ''
-    };
-
-    // SET PROPS VALIDATION
-    static propType = {
-        searchUser: PropTypes.func.isRequired,
-        clearUsers: PropTypes.func.isRequired,
-        showClear: PropTypes.bool.isRequired
-    };
+    const [text, setText] = useState('');
 
     // GET SEARCH KEYWORD FROM THE INPUT FIELD
-    onChange = (e) => this.setState({[e.target.name]: e.target.value});
+    const onChange = (e) => setText(e.target.value);
     
     // SEARCH GITHUB USER
-    onSubmit = e =>{
+    const onSubmit = e =>{
         e.preventDefault();
-        if(this.state.text === '') {
-            this.props.setAlert('Please enter something.', 'danger');
+        if(text === '') {
+            setAlert('Please enter something.', 'danger');
         } else {
-            this.props.searchUser(this.state.text);
-            this.setState({text:''});
+            searchUser(text);
+            setText('');
         }
     }
 
     // THIS WILL CLEAR USERS FROM THE WINDOW 
-    //clearUsers = e => this.props.clearUsers();
+    // const clearUsers = e => clearUsers();
 
-    // THIS WILL RENDER THE CURRENT COMPONENT
-    render() {
-        const {clearUsers, showClear} = this.props
-        return (
-            <div>
-                <form className='form' onSubmit={this.onSubmit}>
-                    <input type='text' name='text' placeholder='Search user...' value={this.state.text} onChange={this.onChange}/>
-                    <input type='submit' className='btn btn-dark btn-block' value='Search'/>
-                </form>
+// THIS WILL RENDER THE CURRENT COMPONENT
+    return (
+        <div>
+            <form className='form' onSubmit={onSubmit}>
+                <input type='text' name='text' placeholder='Search user...' value={text} onChange={onChange}/>
+                <input type='submit' className='btn btn-dark btn-block' value='Search'/>
+            </form>
 
-                {showClear && (
-                    <button className='btn btn-danger btn-block' onClick={clearUsers}>CLEAR</button>
-                )}
-                
-            </div>
-        )
-    }
+            {showClear && (
+                <button className='btn btn-danger btn-block' onClick={clearUsers}>CLEAR</button>
+            )}
+            
+        </div>
+    )
 }
 
-
+// SET PROPS VALIDATION
+Search.propType = {
+    searchUser: PropTypes.func.isRequired,
+    clearUsers: PropTypes.func.isRequired,
+    showClear: PropTypes.bool.isRequired
+};
 
 export default Search;
