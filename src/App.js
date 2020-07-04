@@ -12,7 +12,6 @@ import Search from './components/users/Search';
 import GithubState from './context/github/GithubState';
 
 const App =  () => {
-  const [user, setUser] = useState({});
   const [repos, setRepos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState(null); 
@@ -37,14 +36,7 @@ const App =  () => {
 
 
   // GET SINGLE USER
-  const getSingleUSer = async (username) => {
-    setLoading(true);
-    const res = await axios.get(`https://api.github.com/users/${username}`);
-    console.log(res.data.items);
-    //this.setState({user:res.data, loading: false});
-    setUser(res.data);
-    setLoading(false);
-  }
+
 
   // GET SINGLE USER REPOSITORY
   const getUserRepos = async (username) => {
@@ -85,11 +77,8 @@ const App =  () => {
                 <Route exact path='/user/:login' render={props=>(
                   <User 
                     {...props}
-                    getUser={getSingleUSer}
                     getUserRepos={getUserRepos}
-                    repos = {repos}
-                    user={user} 
-                    loading={loading} /> // (...) spread operator
+                    repos = {repos} /> // (...) spread operator
                 )}/>
               </Switch>
 
