@@ -1,12 +1,17 @@
-import React, { Component } from 'react'
+import React, { useContext } from 'react'
 import UserItem from './UserItem';
 import Spinner from '../layout/Spinner';
 import PropTypes from 'prop-types'
+import GithubContext from '../../context/github/githubContext';
 
 /*
  * USERS COMPONENT WILL SHOW ALL THE SEARCHED USERS 
  */
-const Users = ({loading, users}) => {
+const Users = () => {
+    const githubContext = useContext(GithubContext);
+
+    const {loading, users} = githubContext;
+
     if(loading) {
         return <Spinner />
     } else {
@@ -24,10 +29,10 @@ const Users = ({loading, users}) => {
 }
 
 // SET PROPS VALIDATION
-Users.propType = {
-    users: PropTypes.array.isRequired,
-    loading: PropTypes.bool.isRequired
-}
+// Users.propType = {
+//     users: PropTypes.array.isRequired,
+//     loading: PropTypes.bool.isRequired
+// }
 
 // MANUAL STYLE FOR THE USERS GIRD
 const userStyle = {
