@@ -1,14 +1,14 @@
 import React, { useState, useContext } from 'react'
-import PropTypes from 'prop-types';
 
 import GithubContext from '../../context/github/githubContext';
-import githubContext from '../../context/github/githubContext';
+import AlertContext from '../../context/alert/alertContext';
 /*
 * SEARCH COMPONENT (FUNCTIONS BASED)
 */
-const Search = ({setAlert}) => {
+const Search = () => {
     // INITIALIZE CONTEXT
     const gitHubContext = useContext(GithubContext);
+    const alertContext = useContext(AlertContext);
 
     // FOR STATE MANAGEMENT
     const [text, setText] = useState('');
@@ -20,17 +20,13 @@ const Search = ({setAlert}) => {
     const onSubmit = e =>{
         e.preventDefault();
         if(text === '') {
-            setAlert('Please enter something.', 'danger');
+            alertContext.setAlert('Please enter something.', 'danger');
         } else {
             gitHubContext.searchUser(text);
             setText('');
         }
     }
 
-    // THIS WILL CLEAR USERS FROM THE WINDOW 
-    // const clearUsers = e => clearUsers();
-
-// THIS WILL RENDER THE CURRENT COMPONENT
     return (
         <div>
             <form className='form' onSubmit={onSubmit}>
@@ -45,10 +41,5 @@ const Search = ({setAlert}) => {
         </div>
     )
 }
-
-// SET PROPS VALIDATION
-Search.propType = {
-    setAlert: PropTypes.func.isRequired
-};
 
 export default Search;
