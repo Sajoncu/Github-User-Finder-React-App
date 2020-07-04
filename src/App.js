@@ -12,11 +12,10 @@ import Search from './components/users/Search';
 import GithubState from './context/github/GithubState';
 
 const App =  () => {
-  const [users, setUsers] = useState([]);
   const [user, setUser] = useState({});
   const [repos, setRepos] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [alert, setAlert] = useState(null);
+  const [alert, setAlert] = useState(null); 
   // state = {
   //   users : [],
   //   user: {},
@@ -35,12 +34,7 @@ const App =  () => {
 
 
   // CLEAR USERS
-  const clearUsers = () => {
-    //this.setState({users:[], loading: false});
-    setUsers([]);
-    setLoading(false);
-  }
-  
+
 
   // GET SINGLE USER
   const getSingleUSer = async (username) => {
@@ -79,9 +73,7 @@ const App =  () => {
               <Switch>
                 <Route exact path='/' render={props => (
                     <Fragment>
-                      <Search 
-                        clearUsers = {clearUsers}
-                        showClear = {users.length > 0 ? true : false}
+                      <Search
                         setAlert = {showAlert}
                       />
                       {/* <Users loading={loading} users={users}/> */}
